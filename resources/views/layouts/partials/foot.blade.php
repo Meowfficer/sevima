@@ -165,10 +165,10 @@
         });
     }
 
-    function stock() {
+    function addClass() {
         Swal.fire({
-            title: 'MATERIAL ',
-            confirmButtonText: 'Stock In',
+            title: 'Add New Class',
+            confirmButtonText: 'Add',
             showClass: {
                 popup: 'animate_animated animatezoomIn animate_delay-0.3s'
             },
@@ -179,7 +179,7 @@
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 $.confirm({
-                    title: 'Modal Create ',
+                    title: 'New Class ',
                     content: 'URL:/api/modal-create',
                     columnClass: 'medium',
                     type: 'blue',
@@ -190,22 +190,17 @@
                         text: 'Submit',
                             btnClass: 'btn-blue',
                             action: function() {
-                                let material_incoming,lot_material, employee_id, machine_id, tanggal_masuk_conveyor, description, material_list_id, current_stock;
-                                material_incoming = this.$content.find('#material_incoming').val();
-                                lot_material = this.$content.find('#lot_material').val();
-                                employee_id = this.$content.find('#employee_id').val();
-                                // machine_id = this.$content.find('#machine_id').val();
-                                tanggal_masuk_conveyor = this.$content.find('#tanggal_masuk_conveyor').val();
-                                description = this.$content.find('#description').val();
-                                material_list_id = id;
-                                current_stock = (Number(stock) + Number(this.$content.find('#material_incoming').val()));
+                                let nama_kelas,id_user;
+                                nama_kelas = this.$content.find('#nama_kelas').val();
+                                deskripsi_kelas = this.$content.find('#deskripsi_kelas').val();
+                                id_user = {{ Auth::user()->id }};
                                 
-                                if (!material_incoming || !employee_id ) {
+                                if (!nama_kelas) {
                                     this.close();
                                     Swal.fire({
                                         title: 'Failed!',
                                         icon: 'error',
-                                        html: 'Insert failed : Material Incoming, PIC, or Machine still empty!',
+                                        html: 'Insert failed : Class Name still empty!',
                                         showClass: {
                                             popup: 'animate_animated animate_zoomIn'
                                         },
@@ -226,14 +221,9 @@
                                     },
                                     data: {
                                         "_token": "{{ csrf_token() }}",
-                                        material_incoming,
-                                        employee_id,
-                                        lot_material,
-                                        // machine_id,
-                                        tanggal_masuk_conveyor,
-                                        description,
-                                        material_list_id,
-                                        current_stock,
+                                        nama_kelas,
+                                        deskripsi_kelas,
+                                        id_user,
                                     },
                                     async: false,
                                     success: function(data) {
@@ -241,7 +231,7 @@
                                         Swal.fire({
                                             title: 'Success Insert!!',
                                             icon: 'success',
-                                            html: name,
+                                            // html: id_user,
                                             confirmButtonText: 'Ok',
                                             showClass: {
                                                 popup: 'animate_animated animate_zoomIn'
@@ -295,7 +285,115 @@
                         });
                     }
                 });
-            } 
+            } else(result.isDenied){
+                $.confirm({
+                    title: 'New Class ',
+                    content: 'URL:/api/modal-create',
+                    columnClass: 'medium',
+                    type: 'blue',
+                    animation: 'zoom',
+                    animationSpeed: 800,
+                    buttons: {
+                        formSubmit: {
+                        text: 'Submit',
+                            btnClass: 'btn-blue',
+                            action: function() {
+                                let nama_kelas,id_user;
+                                nama_kelas = this.$content.find('#nama_kelas').val();
+                                deskripsi_kelas = this.$content.find('#deskripsi_kelas').val();
+                                id_user = {{ Auth::user()->id }};
+                                
+                                if (!nama_kelas) {
+                                    this.close();
+                                    Swal.fire({
+                                        title: 'Failed!',
+                                        icon: 'error',
+                                        html: 'Insert failed : Class Name still empty!',
+                                        showClass: {
+                                            popup: 'animate_animated animate_zoomIn'
+                                        },
+                                        hideClass: {
+                                            popup: 'animate_animated animate_zoomOut'
+                                        },
+                                        confirmButtonText: 'Ok',
+                                        
+                                    })
+                                    return false;
+                                }
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/api/modal-store',
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
+                                    data: {
+                                        "_token": "{{ csrf_token() }}",
+                                        nama_kelas,
+                                        deskripsi_kelas,
+                                        id_user,
+                                    },
+                                    async: false,
+                                    success: function(data) {
+                                        console.log(data);
+                                        Swal.fire({
+                                            title: 'Success Insert!!',
+                                            icon: 'success',
+                                            // html: id_user,
+                                            confirmButtonText: 'Ok',
+                                            showClass: {
+                                                popup: 'animate_animated animate_zoomIn'
+                                            },
+                                            hideClass: {
+                                                popup: 'animate_animated animate_zoomOut'
+                                            }
+                                            }).then((result) => {
+                                            /* Read more about isConfirmed, isDenied below */
+                                            if (result.isConfirmed) {
+                                                location.reload();
+                                                console.log(data);
+                                            }
+                                        })
+                                        // location.reload();
+                                    },
+                                    error: function(data) {
+                                        Swal.fire({
+                                            title: 'Failed!',
+                                            icon: 'error',
+                                            html: data.responseJSON.message,
+                                            showClass: {
+                                                popup: 'animate_animated animate_zoomIn'
+                                            },
+                                            hideClass: {
+                                                popup: 'animate_animated animate_zoomOut'
+                                            },
+                                            confirmButtonText: 'Ok',
+                                            }).then((result) => {
+                                            /* Read more about isConfirmed below */
+                                            if (result.isConfirmed) {
+                                                location.reload();
+                                            }
+                                        })
+                                        // $.alert(data.responseJSON.message);
+                                    }
+                                });
+                            }
+                        },
+                        cancel: function() {
+                            //close
+                        },
+                    },
+                    onContentReady: function() {
+                        // bind to events
+                        var jc = this;
+                        this.$content.find('form').on('submit', function(e) {
+                            // if the user submits the form by pressing enter in the field.
+                            e.preventDefault();
+                            jc.$$formSubmit.trigger('click'); // reference the button and click it
+                        });
+                    }
+                });
+            }
         })
     }
 </script>

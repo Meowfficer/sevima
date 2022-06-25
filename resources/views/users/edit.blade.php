@@ -61,9 +61,9 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                    </div>
+                        </div>
 
-                    <div class="form-group mb-3">
+                        <div class="form-group mb-3">
                         <label for="email">Email address</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                             name="email" value="{{ old('email') ?? $user->email }}" placeholder="Enter email">
@@ -72,6 +72,10 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
+                        </div>
+                    <div class="form-group mb-3">
+                        <label for="email">User Kode</label>
+                        <input type="text" class="form-control @error('kode_user') is-invalid @enderror" id="kode_user" value="{{ old('kode_user') ?? $user->kode_user }}" placeholder="Enter user code" disabled>
                     </div>
 
                     <div class="form-group mb-3">

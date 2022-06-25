@@ -27,6 +27,7 @@ class UserSeeder extends Seeder
             $user->username = 'root';
             $user->email = 'root@root.com';
             $user->password = Hash::make('root');
+            $user->kode_user = $this->generateRandomString();
     
             $user->save();
     
@@ -37,5 +38,15 @@ class UserSeeder extends Seeder
         $role->syncPermissions($permissions);
         $user->assignRole([$role->id]);
         
+    }
+
+    function generateRandomString($length = 12) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

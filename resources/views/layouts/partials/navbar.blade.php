@@ -43,7 +43,7 @@
 
             <div class="d-lg-inline-block ms-1">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn header-item noti-icon waves-effect" onclick="stock(1,2,3,4)">
+                <button type="button" class="btn header-item noti-icon waves-effect" onclick="addClass()">
                     <i class="bx bx-plus"></i>
                 </button>
 

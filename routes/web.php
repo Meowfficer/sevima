@@ -26,6 +26,9 @@ Route::middleware('auth:web')->group(function () {
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.index');
 
+    // Kelas
+    Route::get('kelas/{id}', [DashboardController::class, 'detailKelas'])->name('kelas.detail');
+
     // Master Data
      Route::get('master-data', function () {
         $data['page_title'] = 'Master Data';

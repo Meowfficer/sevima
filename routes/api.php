@@ -22,3 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('modal-create', [DashboardController::class, 'createModal'])->name('create-modal');
 Route::post('modal-store', [DashboardController::class, 'storeModal'])->name('store-modal');
 
+Route::get('modal-create-student', [DashboardController::class, 'createModalStudent'])->name('create-modal-student');
+Route::post('modal-store-student', [DashboardController::class, 'storeModalStudent'])->name('store-modal-student');
+
