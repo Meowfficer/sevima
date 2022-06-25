@@ -49,13 +49,13 @@
                                     <div class="my-auto">
                                         <div class="mb-4 mb-md-5 text-center">
                                             <a href="index.html" class="d-block auth-logo">
-                                                <img src="{{ asset('img/telkomsel-logo.png') }}" alt="" height="50">
+                                                <img src="{{ asset('img/logo-grootech.png') }}" alt="" height="100">
                                             </a>
                                         </div>
                                         <div class="auth-content">
                                             <div class="text-center">
                                                 <h5 class="mb-0 font-telkom">Welcome</h5>
-                                                <p class="text-muted mt-2">Sign in to dashboard monitoring.</p>
+                                                <p class="text-muted mt-2">Sign in to dashboard profille.</p>
                                             </div>
                                             <form class="mt-4 pt-2" method="POST" action="{{ route('login') }}">
                                                 @csrf
@@ -96,13 +96,12 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="text-center">
+                                    {{-- <div class="text-center">
                                             <a href="index.html" class="d-block auth-logo mb-2">
                                             <img src="{{ asset('img/CMM.png') }}" alt="" height="40">
                                         </a>
-                                        {{-- <p class="text-muted mt-2">cmm@Copyright2021.</p> --}}
                                         <script>document.write(new Date().getFullYear())</script> © PT. Cahaya Mutiara Mandiri.
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -113,9 +112,8 @@
                         <div class="auth-bg pt-md-5 p-4 d-flex">
                             <div class="bg-dark"></div>
                             <div class="col-12 d-block my-auto text-center">
-                                {{-- <img src="{{ asset('img/telkomsel-logo-t.png') }}" width="60" height="auto" alt=""> --}}
-                                <h1 class="m-0 font-telkom" style="font-size:60px; color:rgba(212, 25, 25, 0.952); font-weight: 900;">TELKOMSEL</h1>
-                                <h2 class="m-0 p-0 font-telkom" style="font-size:40px; color:rgba(255, 255, 255, 0.952);">SMART MONITORING</h2>
+                                {{-- <h1 class="m-0 font-telkom" style="font-size:60px; color:rgba(212, 25, 25, 0.952); font-weight: 900;">TELKOMSEL</h1>
+                                <h2 class="m-0 p-0 font-telkom" style="font-size:40px; color:rgba(255, 255, 255, 0.952);">SMART MONITORING</h2> --}}
                             </div>
                             {{-- <ul class="bg-bubbles">
                                 <li></li>
@@ -138,21 +136,6 @@
             </div>
             <!-- end container fluid -->
         </div>
-
-
-        <!-- JAVASCRIPT -->
-        <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
-        <!-- pace js -->
-        <script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script>
-
-        <script src="{{ asset('assets/js/pages/pass-addon.init.js') }}"></script>
-
-        <script src="{{ asset('assets/js/pages/feather-icon.init.js') }}"></script>
 
     </body>
 

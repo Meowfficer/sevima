@@ -1,28 +1,9 @@
 <?php
 
-use App\Http\Controllers\AccessDoorController;
-use App\Http\Controllers\AssetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartementController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TypeController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\LocationController;
-use App\Http\Controllers\BomController;
-use App\Http\Controllers\CctvController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HistoryLogController;
-use App\Http\Controllers\HistoryNotificationController;
-use App\Http\Controllers\LocationCategoryController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MaintenanceController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\ScheduleMaintenanceController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TaskGroupController;
-use App\Http\Controllers\UserGroupController;
-use App\Http\Controllers\UserTechnicalController;
-use App\Http\Controllers\WorkOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,42 +22,14 @@ Route::get('/', function () {
     return view('auth.login', $data);
 })->name('user.login');
 
-// Modal
-// - Material
-// Route::get('modal-change-material/{id}', [MaterialController::class, 'changeModal'])->name('materials.change-modal');
-
 Route::middleware('auth:web')->group(function () {
     // Dashboard
-    Route::get('overview', [DashboardController::class, 'overview'])->name('dashboard.overview');
-    Route::get('maps-cctv', [DashboardController::class, 'mapsCctv'])->name('dashboard.maps-cctv');
-    Route::get('maps-access-door', [DashboardController::class, 'mapsAccessDoor'])->name('dashboard.maps-access-door');
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.index');
 
-    // Asset
-    // Route::resource('assets', AssetController::class);
-
-    // // Schedule Maintenance
-    // Route::resource('schedule-maintenances', ScheduleMaintenanceController::class);
-
-    // // Work Order
-    // Route::resource('work-orders', WorkOrderController::class);
-
-    // // Cctv
-    Route::resource('cctv', CctvController::class);
-    
-    // Access Door
-    Route::resource('access-door', AccessDoorController::class);
-    
-    // // Location
-    Route::resource('locations', LocationController::class);
-
-    // // Location Categories
-    // Route::resource('location-categories', LocationCategoryController::class)->except([
-    //     'show'
-    // ]);
-
-     // Master Data
+    // Master Data
      Route::get('master-data', function () {
         $data['page_title'] = 'Master Data';
+        $data['breadcumb'] = 'Master Data';
         return view('master-data.index', $data);
     })->name('master-data.index');
 
@@ -93,65 +46,5 @@ Route::middleware('auth:web')->group(function () {
     Route::resource('history-log', HistoryLogController::class)->except([
         'show', 'create', 'store', 'edit', 'update'
     ]);;
-    Route::resource('notification-log', HistoryNotificationController::class)->except([
-        'show', 'create', 'store', 'edit', 'update'
-    ]);;
-    // // Categories
-    // Route::resource('categories', CategoryController::class)->except([
-    //     'show'
-    // ]);
 
-    // // Types
-    // Route::resource('types', TypeController::class)->except([
-    //     'show'
-    // ]);
-
-    // // Material
-    // Route::resource('materials', MaterialController::class)->except([
-    //     'show'
-    // ]);
-
-    // // BOM
-    // Route::resource('boms', BomController::class);
-    // Route::get('boms/{assetId}/{bomId}', [BomController::class, 'showMaterial']);
-
-    // // Task
-    // Route::get('tasks/create-modal', [TaskController::class, 'createModal'])->name('tasks.create-modal');
-    // Route::resource('tasks', TaskController::class)->except([
-    //     'show'
-    // ]);
-
-
-    // // Task Group
-    // Route::get('task-groups/create-modal', [TaskGroupController::class, 'createModal'])->name('task-groups.create-modal');
-    // Route::resource('task-groups', TaskGroupController::class);
-
-    // // Report
-    // Route::get('reports', [ReportController::class, 'index'])->name('reports');
-    // Route::get('asset-reports/{id}', [ReportController::class, 'viewAssetReport'])->name('asset-reports');
-    // Route::get('work-order-reports/{id}', [ReportController::class, 'viewWorkOrderReport'])->name('work-order-reports');
-    // Route::get('maintenance-reports/{id}', [ReportController::class, 'viewMaintenanceReport'])->name('maintenance-reports');
-
-    // // User Technical
-    // Route::get('user-technicals/create-modal', [UserTechnicalController::class, 'createModal'])->name('user-technicals.create-modal');
-    // Route::patch('user-technicals-change-password', [UserTechnicalController::class, 'changePassword'])->name('user-technicals.change-password');
-    // Route::resource('user-technicals', UserTechnicalController::class)->except([
-    //     'show'
-    // ]);
-
-    // // User Technical Group
-    // Route::get('user-technical-groups/create-modal', [UserGroupController::class, 'createModal'])->name('user-technical-groups.create-modal');
-    // Route::resource('user-technical-groups', UserGroupController::class);
 });
-
-// Route::prefix('user-technical')->group(function () {
-//     Route::get('/login', [LoginController::class, 'formLogin'])->name('user-technical.form-login');
-//     Route::post('/login', [LoginController::class, 'login'])->name('user-technical.login');
-//     Route::get('/logout', [LoginController::class, 'logout'])->name('user-technical.logout');
-
-//     Route::get('/show-user-group/{id}',[UserTechnicalController::class, 'showUserGroup'])->middleware('auth:user-technical')->name('user-technical.show-user-group');
-//     Route::get('/dashboard',[UserTechnicalController::class, 'dashboard'])->middleware('auth:user-technical')->name('user-technical.dashboard');
-//     Route::get('/work-orders',[UserTechnicalController::class, 'workOrder'])->middleware('auth:user-technical')->name('user-technical.work-order');
-//     Route::get('/work-orders/{id}/edit',[UserTechnicalController::class, 'editWorkOrder'])->middleware('auth:user-technical')->name('user-technical.work-order-edit');
-//     Route::patch('/work-orders/{id}',[UserTechnicalController::class, 'updateWorkOrder'])->middleware('auth:user-technical')->name('user-technical.work-order-update');
-// });

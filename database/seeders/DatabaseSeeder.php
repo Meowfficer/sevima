@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PermissionTableSeeder::class,
             UserSeeder::class,
-            // WorkOrderStatusSeeder::class,
-            // MaintenanceTypeSeeder::class,
         ]);
     }
 }
