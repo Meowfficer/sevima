@@ -118,6 +118,57 @@ class DashboardController extends Controller
             return json_encode($response);
         }
     }
+    
+    public function storeModalJoin(Request $request)
+    {
+        try {
+            // Checking Class Code
+            $code = $request->class_code;
+            $kelas = KelasMapel::where('kode_kelas', $code)->first();
+            if ($kelas) {
+                // Checking
+                $data_kelas = RoleKelas::where('user_id', $request->user_id)->where('kelas_mapel_id')->first(); 
+                if (!$data_kelas) {
+                    # code...
+                    $data = new RoleKelas;
+                    $data->user_id = Auth::user()->id;
+                    $data->nama_role = 'anggota';
+                    $data->kelas_mapel_id = $kelas->id;
+                    $data->save();
+                    
+                    
+                    $response = (object)[
+                        'status' => 200,
+                        'message' => "Succes Insert",
+                        'data' => $request->all()
+                    ];
+                    return json_encode($response);
+                }else{
+                    
+                    $response = (object)[
+                        'status' => 300,
+                        'message' => "YOu have already joinned this class",
+                        'data' => $request->all()
+                    ];
+                    return json_encode($response);
+                }
+            }else {
+                $response = (object)[
+                    'status' => 500,
+                    'message' => "Succes Insert",
+                    'data' => $request->all(),
+                ];
+                return json_encode($response);
+
+            }   
+        } catch (\Throwable $th) {
+            $response = (object)[
+                'status' => 400,
+                'message' => $th->getMessage()
+            ];
+            return json_encode($response);
+        }
+    }
 
     function generateRandomString($length = 12) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -127,5 +178,10 @@ class DashboardController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    public function createModalJoin()
+    {
+        return view('modal-api.modal-create');
     }
 }

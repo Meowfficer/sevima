@@ -168,7 +168,9 @@
     function addClass() {
         Swal.fire({
             title: 'Add New Class',
-            confirmButtonText: 'Add',
+            showDenyButton: true,
+            confirmButtonText: 'Add New Class',
+            denyButtonText: `Join CLass`,
             showClass: {
                 popup: 'animate_animated animatezoomIn animate_delay-0.3s'
             },
@@ -285,10 +287,10 @@
                         });
                     }
                 });
-            } else(result.isDenied){
+                }else if (result.isDenied){
                 $.confirm({
                     title: 'New Class ',
-                    content: 'URL:/api/modal-create',
+                    content: 'URL:/api/modal-create-join',
                     columnClass: 'medium',
                     type: 'blue',
                     animation: 'zoom',
@@ -298,17 +300,16 @@
                         text: 'Submit',
                             btnClass: 'btn-blue',
                             action: function() {
-                                let nama_kelas,id_user;
-                                nama_kelas = this.$content.find('#nama_kelas').val();
-                                deskripsi_kelas = this.$content.find('#deskripsi_kelas').val();
+                                let class_code,id_user;
+                                class_code = this.$content.find('#class_code').val();
                                 id_user = {{ Auth::user()->id }};
                                 
-                                if (!nama_kelas) {
+                                if (!class_code) {
                                     this.close();
                                     Swal.fire({
                                         title: 'Failed!',
                                         icon: 'error',
-                                        html: 'Insert failed : Class Name still empty!',
+                                        html: 'Insert failed : Class Code still empty!',
                                         showClass: {
                                             popup: 'animate_animated animate_zoomIn'
                                         },
@@ -323,21 +324,20 @@
 
                                 $.ajax({
                                     type: 'POST',
-                                    url: '/api/modal-store',
+                                    url: '/api/modal-store-join',
                                     headers: {
                                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                     },
                                     data: {
                                         "_token": "{{ csrf_token() }}",
-                                        nama_kelas,
-                                        deskripsi_kelas,
+                                        class_code,
                                         id_user,
                                     },
                                     async: false,
                                     success: function(data) {
                                         console.log(data);
                                         Swal.fire({
-                                            title: 'Success Insert!!',
+                                            title: 'Success Join!!',
                                             icon: 'success',
                                             // html: id_user,
                                             confirmButtonText: 'Ok',
