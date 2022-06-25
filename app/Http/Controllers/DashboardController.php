@@ -126,6 +126,7 @@ class DashboardController extends Controller
             $code = $request->class_code;
             $kelas = KelasMapel::where('kode_kelas', $code)->first();
             if ($kelas) {
+                dd($kelas);
                 // Checking
                 $data_kelas = RoleKelas::where('user_id', $request->user_id)->where('kelas_mapel_id')->first(); 
                 if (!$data_kelas) {
@@ -182,6 +183,6 @@ class DashboardController extends Controller
 
     public function createModalJoin()
     {
-        return view('modal-api.modal-create');
+        return view('modal-api.modal-create-join');
     }
 }

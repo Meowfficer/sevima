@@ -6,11 +6,11 @@
         @include('layouts.partials.head')
         <style>
             .bg-right{
-                background-image: url('img/gedung-telkom.jpg');
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover;
                 background-color: #cccccc;
+                background-image: url( {{ asset('/img/gedung-sekolah-unik-header.jpg') }} );
             }
             .bg-dark{
                 position:absolute;
@@ -48,9 +48,9 @@
                                 <div class="d-flex flex-column h-100">
                                     <div class="my-auto">
                                         <div class="mb-4 mb-md-5 text-center">
-                                            <a href="index.html" class="d-block auth-logo">
+                                            {{-- <a href="index.html" class="d-block auth-logo">
                                                 <img src="{{ asset('img/logo-grootech.png') }}" alt="" height="100">
-                                            </a>
+                                            </a> --}}
                                         </div>
                                         <div class="auth-content">
                                             <div class="text-center">
